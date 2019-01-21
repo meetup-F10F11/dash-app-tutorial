@@ -74,7 +74,7 @@ app.layout = html.Div(
                 ],
                 id = 'dropdown',
                 placeholder = '시각화 타입을 선택하세요'
-                # value=4, #로드 시 가장 먼저 보여주고 싶은 특정 탭이 있다면 해당 번호 고정,
+                # value=3, #로드 시 가장 먼저 보여주고 싶은 특정 탭이 있다면 해당 번호 고정,
 
             ),
             style = {
@@ -106,7 +106,10 @@ def display_content(value):
             go.Bar(
                 y=['spring', 'summer', 'autumn', 'winter'],
                 x=list(df_season['count']),
-                orientation='h'
+                orientation='h',
+                marker=dict(
+                    color='rgb(255, 150, 0)' 
+                )
                 )
         ]
 
@@ -117,13 +120,13 @@ def display_content(value):
                 orientation='h',
                 marker=dict(
                     color=[
-                        'rgb(57, 105, 219)',
-                        'rgb(57, 105, 219)',
-                        'rgb(57, 105, 219)',
-                        'rgb(57, 105, 219)',
-                        'rgb(57, 105, 219)',
-                        'rgb(195, 62, 0)',
-                        'rgb(195, 62, 0)',
+                        'rgb(100, 117, 166)',
+                        'rgb(100, 117, 166)',
+                        'rgb(100, 117, 166)',
+                        'rgb(100, 117, 166)',
+                        'rgb(100, 117, 166)',
+                        'rgb(241, 117, 107)',
+                        'rgb(241, 117, 107)',
                     ]
                 )
             )
@@ -133,8 +136,12 @@ def display_content(value):
             y=df['count'],
             x=df['datetime'],
             orientation='v',
+            marker=dict(
+                color='rgb(94, 201, 135)'
+            )
         )]
 
+        # Markdown 텍스트 넣어주기 : 줄 넣기 
         return html.Div([
             html.Div(
                 dcc.Markdown('''
@@ -219,15 +226,14 @@ def display_content(value):
 
 
     elif value == 2:
-        corrMatx = df[["temp","atemp","casual","registered","humidity","windspeed","count"]].corr().values
+        corrMatx = df[["temp","atemp","casual","registered","humidity","windspeed","count"]].corr()
 
-        trace = go.Heatmap(
-            z=corrMatx,
-            x=df.columns,
-            y=df.columns,
-            colorscale='Blues'  # 히트맵 컬러스케일 ['Greys', 'YlGnBu', 'Greens', 'YlOrRd', 'Bluered', 'RdBu','Reds', 'Blues', 'Picnic', 'Rainbow', 'Portland', 'Jet','Hot', 'Blackbody', 'Earth', 'Electric', 'Viridis', 'Cividis']
-            )
-        data=[trace]
+        data_heatmap = [go.Heatmap(
+            z=corrMatx.values,
+            x=corrMatx.columns,
+            y=corrMatx.columns,
+            colorscale='YlOrRd'  # 히트맵 컬러스케일 ['Greys', 'YlGnBu', 'Greens', 'YlOrRd', 'Bluered', 'RdBu','Reds', 'Blues', 'Picnic', 'Rainbow', 'Portland', 'Jet','Hot', 'Blackbody', 'Earth', 'Electric', 'Viridis', 'Cividis']
+            )]
 
         return html.Div([
             # Markdown 텍스트 넣어주기 : 줄 넣기 
@@ -241,7 +247,7 @@ def display_content(value):
                 id='heatmap',
                 figure={
                     'title' : 'Correlation Heatmap',
-                    'data' : data,
+                    'data' : data_heatmap,
                     'layout' : {
                         'title': 'Heatmap',
                     'margin': {
@@ -266,7 +272,7 @@ def display_content(value):
         
         return html.Div([
             
-            # Markdown 텍스트 넣어주기 : 줄 넣기 
+            
             html.Div(
                 dcc.Markdown('''
 * * * *
