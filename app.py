@@ -42,7 +42,6 @@ app.title = 'Meetup-F10F11'
 
 app.layout = html.Div(
     html.Div([
-
         # 우측 상단에 버튼 만들기
         html.Div(
             html.A([
@@ -93,10 +92,6 @@ app.layout = html.Div(
     )
 )
 
-
-# # 콜백함수 suppression
-# app.config['suppress_callback_exceptions'] = True
-
 # 콜백함수의 Input, Output 명시
 @app.callback(
     Output('dropdown-output', 'children'),
@@ -105,8 +100,6 @@ app.layout = html.Div(
 
 
 def display_content(value):
-    
-
     if value == 1:
         
         data_season = [
@@ -124,7 +117,6 @@ def display_content(value):
                 orientation='h',
                 marker=dict(
                     color=[
-                        'rgb(57, 105, 219)',
                         'rgb(57, 105, 219)',
                         'rgb(57, 105, 219)',
                         'rgb(57, 105, 219)',
@@ -168,8 +160,8 @@ def display_content(value):
                             } 
                         },
                         style={
-                            'height': '70vh',
-                            'width' : '80vh',
+                            'height': '40vh',
+                            'width' : '60vh',
                         }
                     ),
                     style={
@@ -194,8 +186,8 @@ def display_content(value):
                             },
                         },
                         style={
-                            'height': '70vh',
-                            'width' : '80vh',
+                            'height': '40vh',
+                            'width' : '60vh',
                         }
                     ),
                     style={
